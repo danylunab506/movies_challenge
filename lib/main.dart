@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'theme/theme_provider.dart';
+import 'package:movies_challenge/core/localizations/localizations_extension.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:movies_challenge/core/localizations/l10n/l10n.dart';
+
 import 'theme/app_theme.dart';
 import 'features/splash_screen/splash_screen.dart';
+import '../core/router/routes.dart';
 
 void main() {
   runApp(
@@ -30,13 +36,25 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return MaterialApp(
-      title: 'Movies Challenge',
-      debugShowCheckedModeBanner: false,
-      theme: AppThemes.lightTheme,
-      darkTheme: AppThemes.darkTheme,
-      themeMode: themeProvider.themeMode,
-      home: HomePage(),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        themeMode: themeProvider.themeMode,
+        restorationScopeId: 'app',
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        routerConfig: router,
+        supportedLocales: L10n.all,
+        onGenerateTitle: (BuildContext context) =>
+            context.l10n.appTitle,
+      ),
     );
   }
 }
