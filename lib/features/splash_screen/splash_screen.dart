@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:dio/dio.dart';
+
+import 'package:movies_challenge/core/network/api_client.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onInitializationComplete;
@@ -42,6 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _setupServices() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-   // GetIt.instance.registerSingleton<>();
+   GetIt.instance.registerSingleton<Dio>(ApiClient.getClient());
   }
 }
