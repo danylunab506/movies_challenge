@@ -1,0 +1,23 @@
+{
+    "@@locale": "en",
+
+    "appTitle" : "Dany Movies Challenge",
+    "@appTitle": {
+        "description": "App Title"
+    },
+
+    "screenNotFound" : "Screen Not Found",
+    "@screenNotFound": {
+        "description": "Message for Screen not found"
+    },
+
+    "noMoviesAvailable" : "No movies available",
+    "@noMoviesAvailable": {
+        "description": "Message when no movies available"
+    },
+
+    "overview" : "Overview",
+    "@overview": {
+        "description": "Movie overview"
+    }
+}
