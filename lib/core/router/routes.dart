@@ -20,5 +20,13 @@ final GoRouter router = GoRouter(
         return const MoviesListScreen();
       },
     ),
+    GoRoute(
+      name: movieDetails,
+      path: '/$movieDetails',
+      builder: (BuildContext context, GoRouterState state) {
+        final movieId = state.extra as String;
+        return MovieDetailsScreen(movieId: movieId.toString());
+      },
+    ),
   ],
 );

@@ -5,4 +5,9 @@ import 'route_names.dart';
 
 extension RouterNavigation on BuildContext {
   pushMoviesLists() => goNamed(moviesList);
+
+  pushMovieDetails(String movieId) => pushNamed(
+    movieDetails,
+    extra: movieId,
+  );
 }

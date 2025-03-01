@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_challenge/core/localizations/localizations_extension.dart';
 import 'package:movies_challenge/core/constants/api_constants.dart';
+import 'package:movies_challenge/core/router/router_navigation.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/movies_list_provider.dart';
@@ -24,7 +25,7 @@ class MoviesListView extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         itemCount: movies.length,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () => {},
+          onTap: () => context.pushMovieDetails(movies[index].id),
           child: Card(
             clipBehavior: Clip.none,
             shape: RoundedRectangleBorder(
