@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:movies_challenge/theme/theme_provider.dart';
 import 'package:movies_challenge/global_widgets/app_scaffold/app_scaffold.dart';
+import 'package:movies_challenge/core/localizations/localizations_extension.dart';
 
 import 'providers/movies_list_provider.dart';
 import 'widgets/movies_list_view.dart';
@@ -24,9 +26,25 @@ class _MoviesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<MoviesListProvider>();
+    final themeProvider = context.watch<ThemeProvider>();
+
     return AppScaffold(
       loadingStatus: viewModel.loadingStatus,
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Row(
+            children: [
+              Text(context.l10n.dark_theme),
+              Switch(
+              value: themeProvider.themeMode == ThemeMode.dark,
+              onChanged: (value) {
+                themeProvider.toggleTheme(value);
+              },
+            ),
+            ],
+          ),
+        ],
+      ),
       body: MoviesListView(),
     );
   }

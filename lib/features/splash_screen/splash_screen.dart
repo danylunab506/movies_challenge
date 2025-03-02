@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:lottie/lottie.dart';
-import 'package:movies_challenge/core/localizations/localizations_extension.dart';
 import 'package:movies_challenge/core/network/api_client.dart';
 
 class SplashScreen extends StatefulWidget {

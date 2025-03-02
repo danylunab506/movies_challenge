@@ -24,5 +24,10 @@
     "app_loading" : "Loading",
     "@overview": {
         "description": "Loading data"
+    },
+
+    "dark_theme" : "Dark theme",
+    "@overview": {
+        "description": "Dark theme"
     }
 }

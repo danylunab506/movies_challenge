@@ -24,5 +24,10 @@
     "app_loading" : "Cargando",
     "@overview": {
         "description": "Cargando los datos"
+    },
+
+    "dark_theme" : "Modo Oscuro",
+    "@overview": {
+        "description": "Modo Oscuro"
     }
 }
