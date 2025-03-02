@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart' show ChangeNotifier;
+import 'package:flutter/material.dart' show ChangeNotifier, ScrollController;
 import 'package:intl/intl.dart';
-
+import 'package:dio/dio.dart';
 import 'package:movies_challenge/core/network/errors/api_exception.dart';
 import 'package:movies_challenge/global_widgets/app_loading_overlay/notifier_helpers/loading_status_mixin.dart';
 import '../../domain/models/movie_light_model.dart';
@@ -12,25 +12,36 @@ class MoviesListProvider extends ChangeNotifier with InitializedLoadingStatusMix
   late String paramLanguage;
   late String paramSortBy;
   late IMoviesListRepository repository;
-  int paramPage = 0;
-  int totalPages = 0;
+  int paramPage = 1;
+  int totalPages = 1;
   int totalResults = 0;
   List<MovieLightModel> movies = [];
 
   String errorMessage = '';
 
+  final ScrollController scrollController = ScrollController();
+
   void init({required String language}) {
     paramLanguage = language;
     paramSortBy = 'popularity.desc';
     repository = MoviesListRepository();
+
+    scrollController.addListener(_onScroll);
     getPopularMovies();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   Future<void> getPopularMovies({bool reset = false}) async {
     loadingStatus.begin();
     try {
       if (reset) {
-        paramPage = 0;
+        paramPage = 1;
+        movies = [];
       }
       final result = await repository.getPopularMovies(
         language: paramLanguage,
@@ -38,14 +49,15 @@ class MoviesListProvider extends ChangeNotifier with InitializedLoadingStatusMix
         sortBy: paramSortBy,
       );
 
-      paramPage = result?.page ?? -1;
       totalPages = result?.totalPages ?? 0;
       totalResults = result?.totalResults ?? 0;
-      movies = result?.movies ?? [];
+      movies.addAll(result?.movies ?? []);
+      
+      paramPage = totalPages > paramPage ? paramPage + 1 : -1;
 
     } catch (e) {
       if (e is ApiException) {
-        errorMessage = e.message;
+        errorMessage = e.type != DioExceptionType.cancel  ? e.message : '';
       } else {
         errorMessage = "Error desconocido";
       }
@@ -78,13 +90,21 @@ class MoviesListProvider extends ChangeNotifier with InitializedLoadingStatusMix
 
     } catch (e) {
       if (e is ApiException) {
-        errorMessage = e.message;
+        errorMessage = e.type != DioExceptionType.cancel  ? e.message : '';
       } else {
         errorMessage = "Error desconocido";
       }
     } finally {
       loadingStatus.end();
       notifyListeners();
+    }
+  }
+
+  void _onScroll() {
+    if(paramPage > 0){
+      if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 100) {
+        getPopularMovies();
+      }
     }
   }
 }

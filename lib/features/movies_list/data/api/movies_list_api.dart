@@ -12,16 +12,16 @@ abstract class MoviesListApi {
   factory MoviesListApi(Dio dio) = _MoviesListApi;
 
   @GET(
-    '/discover/movie?includeadult=false&include__video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type={type}&release_date.gte={minDate}&release_date.lte={maxDate}',
+    '/discover/movie?includeadult=false&include__video=false&language={language}&page={page}&sort_by={sortBy}&with_release_type={type}&release_date.gte={minDate}&release_date.lte={maxDate}',
   )
   Future<MoviesListResultSchema> getMovies({
     @CancelRequest() CancelToken? cancelToken,
-    @Path('language') required String language, // en-US
-    @Path('page') required int page, // 1
-    @Path('sortBy') required String sortBy, // popularity.desc
-    @Path('with_release_type') int? type, // 2|3
+    @Path('language') required String language,
+    @Path('page') required int page,
+    @Path('sortBy') required String sortBy, 
+    @Path('with_release_type') int? type,
     @Path('release_date.gte') String? minDate,
-    @Path('release_date.lte') String? maxDate, // Max Today
+    @Path('release_date.lte') String? maxDate,
   });
 }
 

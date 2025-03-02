@@ -23,9 +23,9 @@ class MoviesListTask extends ITask {
   final String language;
   final int page;
   final String sortBy;
-  final int? type; // 2|3
+  final int? type;
   final String? minDate;
-  final String? maxDate; // Max Today
+  final String? maxDate;
 
   final CancelToken? cancelToken;
 
@@ -41,11 +41,6 @@ class MoviesListTask extends ITask {
         minDate: minDate,
         maxDate: maxDate,
       );
-
-      if (cancelToken?.isCancelled == true) {
-        throw cancelToken!.cancelError!;
-      }
-
       return result;
     } on DioException catch (e) {
       throw ApiErrorHandler.handleError(e);

@@ -43,7 +43,7 @@ class _MoviesListApi implements MoviesListApi {
     )
         .compose(
           _dio.options,
-          '/discover/movie?includeadult=false&include__video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type={type}&release_date.gte={minDate}&release_date.lte={maxDate}',
+          '/discover/movie?includeadult=false&include__video=false&language=${language}&page=${page}&sort_by=${sortBy}&with_release_type={type}&release_date.gte={minDate}&release_date.lte={maxDate}',
           queryParameters: queryParameters,
           data: _data,
           cancelToken: cancelToken,

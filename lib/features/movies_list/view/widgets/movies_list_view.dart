@@ -33,6 +33,7 @@ class MoviesListView extends StatelessWidget {
 
       final movies = viewModel.movies;
       return ListView.builder(
+        controller: viewModel.scrollController,
         padding: const EdgeInsets.all(12.0),
         itemCount: movies.length,
         itemBuilder: (context, index) => GestureDetector(
