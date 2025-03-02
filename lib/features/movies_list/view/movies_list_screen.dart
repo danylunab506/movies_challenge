@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:movies_challenge/theme/theme_provider.dart';
 import 'package:movies_challenge/global_widgets/app_scaffold/app_scaffold.dart';
 import 'package:movies_challenge/core/localizations/localizations_extension.dart';
+import 'package:movies_challenge/core/utils/device_info_utils.dart';
 
 import 'providers/movies_list_provider.dart';
 import 'widgets/movies_list_view.dart';
@@ -13,8 +14,9 @@ class MoviesListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      // TODO: change language for device language
-      create: (context) => MoviesListProvider()..init(language: 'es-US'),
+      create: (context) => MoviesListProvider()..init(
+        language: DeviceInfoUtils.getDeviceLanguage(),
+      ),
       child: _MoviesListScreen(),
     );
   }
