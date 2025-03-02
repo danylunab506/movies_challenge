@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show ChangeNotifier;
+import 'package:dio/dio.dart';
 import 'package:movies_challenge/core/network/errors/api_exception.dart';
 import 'package:movies_challenge/global_widgets/app_loading_overlay/notifier_helpers/loading_status_mixin.dart';
 
@@ -27,7 +28,7 @@ class MovieDetailsProvider extends ChangeNotifier with InitializedLoadingStatusM
       notifyListeners();
     } catch (e) {
       if (e is ApiException) {
-        errorMessage = e.message;
+        errorMessage = e.type != DioExceptionType.cancel  ? e.message : '';
       } else {
         errorMessage = "Error desconocido";
       }

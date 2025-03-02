@@ -15,10 +15,10 @@ class ApiErrorHandler {
         return ServerException("Error en el servidor: ${error.response?.data}");
 
       case DioExceptionType.cancel:
-        return ApiException("Solicitud cancelada");
+        return ApiException("Solicitud cancelada", DioExceptionType.cancel);
 
       default:
-        return ApiException("Error inesperado: ${error.message}");
+        return ApiException("Error inesperado: ${error.message}", DioExceptionType.unknown);
     }
   }
 }
