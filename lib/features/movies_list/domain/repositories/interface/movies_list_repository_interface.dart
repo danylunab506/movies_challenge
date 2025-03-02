@@ -5,8 +5,8 @@ abstract class IMoviesListRepository {
     required String language,
     required int page,
     required String sortBy,
-    bool force,
   });
+
   Future<MoviesResultModel?> getNowPlayingMovies({
     required String language,
     required int page,
@@ -14,6 +14,5 @@ abstract class IMoviesListRepository {
     required int type,
     required String minDate,
     required String maxDate,
-    bool force,
   });
 }

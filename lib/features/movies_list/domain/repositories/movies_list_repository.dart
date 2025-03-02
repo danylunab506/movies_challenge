@@ -12,35 +12,24 @@ class MoviesListRepository extends IMoviesListRepository {
     required String language,
     required int page,
     required String sortBy,
-    bool force = false,
   }) async {
-    if (cancelToken != null && force) {
+    if (cancelToken != null) {
       // Cancelling MoviesListTask in progress and forcing a new task
       cancelToken?.cancel('Cancelling to force a new MoviesListTask');
       cancelToken = null;
-    } else if (cancelToken != null) {
-      // Skipping MoviesListTask, already in progress
-      return null;
     }
 
     cancelToken = CancelToken();
+    final schema = await MoviesListTask(
+      language: language,
+      page: page,
+      sortBy: sortBy,
+      cancelToken: cancelToken,
+    ).run();
 
-    try {
-      final schema = await MoviesListTask(
-        language: language,
-        page: page,
-        sortBy: sortBy,
-        cancelToken: cancelToken,
-      ).run();
+    cancelToken = null;
 
-      cancelToken = null;
-
-      return MoviesResultModel.fromSchema(schema: schema);
-    } catch (error) {
-      // Error running MoviesListTask
-      cancelToken = null;
-      return null;
-    }
+    return MoviesResultModel.fromSchema(schema: schema);
   }
 
   @override
@@ -51,34 +40,26 @@ class MoviesListRepository extends IMoviesListRepository {
     required int type,
     required String minDate,
     required String maxDate,
-    bool force = false,
   }) async {
-    if (cancelToken != null && force) {
+    if (cancelToken != null) {
       // Cancelling MoviesListTask in progress and forcing a new task
       cancelToken?.cancel('Cancelling to force a new MoviesListTask');
       cancelToken = null;
-    } else {
-      // Skipping MoviesListTask, already in progress
-      return null;
     }
 
     cancelToken = CancelToken();
 
-    try {
-      final schema = await MoviesListTask(
-        language: language,
-        page: page,
-        sortBy: sortBy,
-        type: type,
-        minDate: minDate,
-        maxDate: maxDate,
-        cancelToken: cancelToken,
-      ).run();
+    final schema = await MoviesListTask(
+      language: language,
+      page: page,
+      sortBy: sortBy,
+      type: type,
+      minDate: minDate,
+      maxDate: maxDate,
+      cancelToken: cancelToken,
+    ).run();
 
-      return MoviesResultModel.fromSchema(schema: schema);
-    } catch (error) {
-      // Error running MoviesListTask
-      return null;
-    }
+    cancelToken = null;
+    return MoviesResultModel.fromSchema(schema: schema);
   }
 }

@@ -3,6 +3,7 @@ import 'package:movies_challenge/core/localizations/localizations_extension.dart
 import 'package:movies_challenge/core/constants/api_constants.dart';
 import 'package:movies_challenge/core/router/router_navigation.dart';
 import 'package:provider/provider.dart';
+import 'package:movies_challenge/global_widgets/alerts/app_alert.dart';
 
 import '../providers/movies_list_provider.dart';
 
@@ -12,9 +13,19 @@ class MoviesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MoviesListProvider>(builder: (_, viewModel, child) {
-      if (viewModel.loadingNotifier.value) return const SizedBox.shrink();
+      
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if(viewModel.errorMessage.isNotEmpty){
+          viewModel.errorMessage = '';
+          showErrorAlert(
+            context, 
+            viewModel.errorMessage, 
+            (){},
+          );
+        }
+      });
 
-      if (viewModel.movies.isEmpty) {
+      if (!viewModel.loadingStatus.isLoading && viewModel.movies.isEmpty) {
         return Center(
           child: Text(context.l10n.noMoviesAvailable),
         );

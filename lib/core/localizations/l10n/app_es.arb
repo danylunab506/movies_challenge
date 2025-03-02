@@ -19,5 +19,10 @@
     "overview" : "Resumen",
     "@overview": {
         "description": "Resumen de una película"
+    },
+    
+    "app_loading" : "Cargando",
+    "@overview": {
+        "description": "Cargando los datos"
     }
 }

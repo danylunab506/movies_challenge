@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:movies_challenge/shared/interfaces/task_interface.dart';
+import 'package:movies_challenge/core/network/errors/api_error_handler.dart';
 
 import '../api/movie_details_api.dart';
 import '../schemas/movie_details_schema.dart';
@@ -31,8 +32,8 @@ class MovieDetailsTask extends ITask {
       }
 
       return result;
-    } catch (_) {
-      rethrow;
+    } on DioException catch (e) {
+      throw ApiErrorHandler.handleError(e);
     }
   }
 }

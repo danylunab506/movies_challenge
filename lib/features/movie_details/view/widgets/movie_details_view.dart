@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_challenge/core/localizations/localizations_extension.dart';
 import 'package:movies_challenge/core/constants/api_constants.dart';
 import 'package:provider/provider.dart';
-
+import 'package:movies_challenge/global_widgets/alerts/app_alert.dart';
 import '../providers/movie_details_provider.dart';
 
 class MovieDetailsView extends StatelessWidget {
@@ -12,7 +12,17 @@ class MovieDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<MovieDetailsProvider>(
       builder: (_, viewModel, child) {
-        if (viewModel.movie == null || viewModel.loadingNotifier.value) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+        if(viewModel.errorMessage.isNotEmpty){
+          viewModel.errorMessage = '';
+          showErrorAlert(
+            context, 
+            viewModel.errorMessage, 
+            (){},
+          );
+        }
+      });
+        if (viewModel.movie == null) {
           return const SizedBox.shrink();
         }
 

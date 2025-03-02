@@ -6,7 +6,7 @@ const defaultDuration = Duration(seconds: 10);
 
 class ApiClient {
   static Dio getClient() {
-    return Dio(
+    final dio =  Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
         receiveTimeout: defaultDuration,
@@ -18,5 +18,19 @@ class ApiClient {
         },
       ),
     );
+
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        return handler.next(options);
+      },
+      onResponse: (response, handler) {
+        return handler.next(response);
+      },
+      onError: (DioException e, handler) {
+        return handler.next(e);
+      },
+    ));
+
+    return dio;
   }
 }

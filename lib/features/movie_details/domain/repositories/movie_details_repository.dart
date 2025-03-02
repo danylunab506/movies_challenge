@@ -17,18 +17,12 @@ class MovieDetailsRepository extends IMovieDetailsRepository {
 
     cancelToken = CancelToken();
 
-    try {
-      final schema = await MovieDetailsTask(
-        movieId: movieId,
-      ).run();
+    final schema = await MovieDetailsTask(
+      movieId: movieId,
+    ).run();
 
-      cancelToken = null;
+    cancelToken = null;
 
-      return MovieDetailsModel.fromSchema(schema: schema);
-    } catch (error) {
-      // Error running MovieDetailsTask
-      cancelToken = null;
-      return null;
-    }
+    return MovieDetailsModel.fromSchema(schema: schema);
   }
 }

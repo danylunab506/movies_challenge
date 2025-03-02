@@ -21,11 +21,11 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: LoadingOverlay(
-        loadingStatus: loadingStatus,
-        child: Scaffold(
-          appBar: appBar,
-          body: body,
+      child: Scaffold(
+        appBar: appBar,
+        body: LoadingOverlay(
+          loadingStatus: loadingStatus,
+          child: body,
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:movies_challenge/global_widgets/app_scaffold/app_scaffold.dart';
 
 import 'providers/movie_details_provider.dart';
 import 'widgets/movie_details_view.dart';
@@ -32,20 +33,14 @@ class _MovieDetailsScreen extends StatelessWidget {
     final title =
         '$originalTitle ${releaseYear.isNotEmpty ? '($releaseYear)' : ''}';
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Consumer<MovieDetailsProvider>(
-            builder: (_, viewModel, __) => Text(title),
-          ),
-        ),
-        body: MovieDetailsView(),
-        bottomSheet: ValueListenableBuilder(
-          valueListenable: viewModel.loadingNotifier,
-          builder: (_, value, __) =>
-              value ? CircularProgressIndicator() : SizedBox.shrink(),
+    return AppScaffold(
+      loadingStatus: viewModel.loadingStatus,
+      appBar: AppBar(
+        title: Consumer<MovieDetailsProvider>(
+          builder: (_, viewModel, __) => Text(title),
         ),
       ),
+      body: MovieDetailsView(),
     );
   }
 }

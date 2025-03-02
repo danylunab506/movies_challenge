@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:lottie/lottie.dart';
+import 'package:movies_challenge/core/localizations/localizations_extension.dart';
+
 import 'loading_status.dart';
 
 class LoadingOverlay extends StatelessWidget {
@@ -15,7 +18,7 @@ class LoadingOverlay extends StatelessWidget {
     required this.loadingStatus,
     required this.child,
     this.placeholder,
-    this.expandOverlay = true,
+    this.expandOverlay = false,
     this.showBackground = true,
     this.alwaysBuildChild = false,
   });
@@ -89,9 +92,6 @@ class _Overlay extends StatelessWidget {
           color: Colors.black.withValues(
             alpha: 0.5
           ),
-          margin:  EdgeInsets.only(
-            top: 40,
-          ),
           child: indicator,
         ),
       ),
@@ -116,10 +116,18 @@ class _RefreshingIndicator extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          CircularProgressIndicator(),
+          Lottie.asset(
+            'assets/lottie/loading.json',
+            height: 100,
+            repeat: true,
+          ),
           Text(
-            'Cargando',
+            context.l10n.app_loading,
             textAlign: TextAlign.left,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ],
       ),

@@ -19,5 +19,10 @@
     "overview" : "Overview",
     "@overview": {
         "description": "Movie overview"
+    },
+    
+    "app_loading" : "Loading",
+    "@overview": {
+        "description": "Loading data"
     }
 }

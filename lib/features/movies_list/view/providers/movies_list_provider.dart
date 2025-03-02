@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart' show ChangeNotifier, ValueNotifier;
+import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:intl/intl.dart';
 
+import 'package:movies_challenge/core/network/errors/api_exception.dart';
+import 'package:movies_challenge/global_widgets/app_loading_overlay/notifier_helpers/loading_status_mixin.dart';
 import '../../domain/models/movie_light_model.dart';
 import '../../domain/repositories/interface/movies_list_repository_interface.dart';
 import '../../domain/repositories/movies_list_repository.dart';
 
-class MoviesListProvider extends ChangeNotifier {
+class MoviesListProvider extends ChangeNotifier with InitializedLoadingStatusMixin {
   final _format = DateFormat('yyyy-MM-dd');
   late String paramLanguage;
   late String paramSortBy;
@@ -15,16 +17,17 @@ class MoviesListProvider extends ChangeNotifier {
   int totalResults = 0;
   List<MovieLightModel> movies = [];
 
-  final loadingNotifier = ValueNotifier(true);
+  String errorMessage = '';
 
   void init({required String language}) {
-    paramLanguage = 'en-US';
+    paramLanguage = language;
     paramSortBy = 'popularity.desc';
     repository = MoviesListRepository();
     getPopularMovies();
   }
 
   Future<void> getPopularMovies({bool reset = false}) async {
+    loadingStatus.begin();
     try {
       if (reset) {
         paramPage = 0;
@@ -35,26 +38,25 @@ class MoviesListProvider extends ChangeNotifier {
         sortBy: paramSortBy,
       );
 
-      if (result == null) {
-        // TODO: handle error
-        loadingNotifier.value = false;
-        return;
+      paramPage = result?.page ?? -1;
+      totalPages = result?.totalPages ?? 0;
+      totalResults = result?.totalResults ?? 0;
+      movies = result?.movies ?? [];
+
+    } catch (e) {
+      if (e is ApiException) {
+        errorMessage = e.message;
+      } else {
+        errorMessage = "Error desconocido";
       }
-
-      paramPage = result.page;
-      totalPages = result.totalPages;
-      totalResults = result.totalResults;
-      movies = result.movies;
-
+    } finally {
+      loadingStatus.end();
       notifyListeners();
-    } catch (error) {
-      // TODO: handle exception
     }
-
-    loadingNotifier.value = false;
   }
 
   Future<void> getNowPlayingMovies({bool reset = false}) async {
+    loadingStatus.begin();
     try {
       if (reset) {
         paramPage = 0;
@@ -69,22 +71,20 @@ class MoviesListProvider extends ChangeNotifier {
         minDate: _format.format(DateTime.now()),
       );
 
-      if (result == null) {
-        // TODO: handle error
-        loadingNotifier.value = false;
-        return;
+      paramPage = result?.page ?? -1;
+      totalPages = result?.totalPages ?? 0;
+      totalResults = result?.totalResults ?? 0;
+      movies = result?.movies ?? [];
+
+    } catch (e) {
+      if (e is ApiException) {
+        errorMessage = e.message;
+      } else {
+        errorMessage = "Error desconocido";
       }
-
-      paramPage = result.page;
-      totalPages = result.totalPages;
-      totalResults = result.totalResults;
-      movies = result.movies;
-
+    } finally {
+      loadingStatus.end();
       notifyListeners();
-    } catch (error) {
-      // TODO: handle exception
     }
-
-    loadingNotifier.value = false;
   }
 }

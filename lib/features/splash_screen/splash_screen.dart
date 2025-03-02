@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
-
+import 'package:lottie/lottie.dart';
+import 'package:movies_challenge/core/localizations/localizations_extension.dart';
 import 'package:movies_challenge/core/network/api_client.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,11 +34,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Movies Challenge',
       home: Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: Center(
+          child: Lottie.asset(
+            'assets/lottie/splash.json',
+            height: 100,
+            repeat: true,
+          ),
+        ),
       ),
     );
   }
