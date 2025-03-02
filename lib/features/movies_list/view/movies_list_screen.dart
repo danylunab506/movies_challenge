@@ -36,7 +36,7 @@ class _MoviesListScreen extends StatelessWidget {
         actions: [
           Row(
             children: [
-              Text(context.l10n.dark_theme),
+              Text(context.l10n.darkTheme),
               Switch(
               value: themeProvider.themeMode == ThemeMode.dark,
               onChanged: (value) {

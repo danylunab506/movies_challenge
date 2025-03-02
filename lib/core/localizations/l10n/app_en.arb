@@ -21,13 +21,18 @@
         "description": "Movie overview"
     },
     
-    "app_loading" : "Loading",
+    "appLoading" : "Loading",
     "@overview": {
         "description": "Loading data"
     },
 
-    "dark_theme" : "Dark theme",
+    "darkTheme" : "Dark theme",
     "@overview": {
         "description": "Dark theme"
+    },
+
+    "searchMovies" : "Search Movies...",
+    "@overview": {
+        "description": "Search Movies..."
     }
 }

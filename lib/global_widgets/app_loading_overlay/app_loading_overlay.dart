@@ -122,7 +122,7 @@ class _RefreshingIndicator extends StatelessWidget {
             repeat: true,
           ),
           Text(
-            context.l10n.app_loading,
+            context.l10n.appLoading,
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.white,
