@@ -58,31 +58,3 @@ class MainApp extends StatelessWidget {
     );
   }
 }
-
-class HomePage extends StatelessWidget {
-
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
-
-    return Scaffold(
-      appBar: AppBar(title: Text("Theme Mode Switch")),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Modo Oscuro:"),
-            Switch(
-              value: themeProvider.themeMode == ThemeMode.dark,
-              onChanged: (value) {
-                themeProvider.toggleTheme(value);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
