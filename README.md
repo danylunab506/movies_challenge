@@ -5,6 +5,10 @@ Movies Chanllenge App es una aplicación desarrollada en Flutter que permite con
 
 ## Características
 - Consulta de películas desde la API de TMDB.
+- Busqueda local en tiempo real.
+- Soporte multi lenguage: Inglés y Español.
+- Dark/Light Mode
+- Paginación 
 - Implementación de **Clean Architecture** para una mejor organización del código.
 - Manejo de estado con **Provider**.
 - Navegación con **GoRouter**.
