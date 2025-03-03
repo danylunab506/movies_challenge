@@ -6,6 +6,9 @@ import '../schemas/movie_details_schema.dart';
 
 part 'movie_details_api.g.dart';
 
+///
+///API services to get the movie details
+///
 @RestApi(parser: Parser.FlutterCompute)
 abstract class MovieDetailsApi {
   factory MovieDetailsApi(Dio dio) = _MovieDetailsApi;

@@ -6,6 +6,10 @@ import '../schemas/movies_list_result_schema.dart';
 
 part 'movies_list_api.g.dart';
 
+///
+///API services to get the movies lists
+///
+
 @RestApi(parser: Parser.FlutterCompute)
 abstract class MoviesListApi {
 

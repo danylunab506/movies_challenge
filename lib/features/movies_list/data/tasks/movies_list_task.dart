@@ -6,6 +6,9 @@ import 'package:movies_challenge/core/network/errors/api_error_handler.dart';
 import '../api/movies_list_api.dart';
 import '../schemas/movies_list_result_schema.dart';
 
+///
+///Performs the service call to retrieve the list of movies.
+///
 class MoviesListTask extends ITask {
 
   final api = MoviesListApi(GetIt.instance<Dio>());

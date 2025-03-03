@@ -6,6 +6,9 @@ import 'package:movies_challenge/core/network/errors/api_error_handler.dart';
 import '../api/movie_details_api.dart';
 import '../schemas/movie_details_schema.dart';
 
+///
+///Performs the service call to retrieve the movie details.
+///
 class MovieDetailsTask extends ITask {
   
   final api = MovieDetailsApi(GetIt.instance<Dio>());

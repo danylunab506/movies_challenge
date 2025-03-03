@@ -3,6 +3,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'movie_light_schema.freezed.dart';
 part 'movie_light_schema.g.dart';
 
+///
+///Model required to parse the service response for use in the Domain layer.
+///
+
 @freezed
 class MovieLightSchema with _$MovieLightSchema {
   // ignore: invalid_annotation_target

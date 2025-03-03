@@ -5,6 +5,10 @@ import 'movie_genre_schema.dart';
 part 'movie_details_schema.freezed.dart';
 part 'movie_details_schema.g.dart';
 
+///
+///Model required to parse the service response for use in the Domain layer.
+///
+
 @freezed
 class MovieDetailsSchema with _$MovieDetailsSchema {
   // ignore: invalid_annotation_target
