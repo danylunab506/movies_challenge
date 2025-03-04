@@ -27,17 +27,17 @@ class _MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<MovieDetailsProvider>();
-    final originalTitle = viewModel.movie?.originalTitle ?? '';
-    final releaseYear = viewModel.movie?.releaseYear ?? '';
+    final movieDetailsProvider = context.watch<MovieDetailsProvider>();
+    final originalTitle = movieDetailsProvider.movie?.originalTitle ?? '';
+    final releaseYear = movieDetailsProvider.movie?.releaseYear ?? '';
     final title =
         '$originalTitle ${releaseYear.isNotEmpty ? '($releaseYear)' : ''}';
 
     return AppScaffold(
-      loadingStatus: viewModel.loadingStatus,
+      loadingStatus: movieDetailsProvider.loadingStatus,
       appBar: AppBar(
         title: Consumer<MovieDetailsProvider>(
-          builder: (_, viewModel, __) => Text(title),
+          builder: (_, movieDetailsProvider, __) => Text(title),
         ),
       ),
       body: MovieDetailsView(),

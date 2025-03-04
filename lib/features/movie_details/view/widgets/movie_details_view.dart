@@ -11,22 +11,22 @@ class MovieDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MovieDetailsProvider>(
-      builder: (_, viewModel, child) {
+      builder: (_, movieDetailsProvider, child) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-        if(viewModel.errorMessage.isNotEmpty){
-          viewModel.errorMessage = '';
+        if(movieDetailsProvider.errorMessage.isNotEmpty){
+          movieDetailsProvider.errorMessage = '';
           showErrorAlert(
             context, 
-            viewModel.errorMessage, 
+            movieDetailsProvider.errorMessage, 
             (){},
           );
         }
       });
-        if (viewModel.movie == null) {
+        if (movieDetailsProvider.movie == null) {
           return const SizedBox.shrink();
         }
 
-        final movie = viewModel.movie!;
+        final movie = movieDetailsProvider.movie!;
 
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

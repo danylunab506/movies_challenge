@@ -27,11 +27,11 @@ class _MoviesListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<MoviesListProvider>();
+    final moviesListProvider = context.read<MoviesListProvider>();
     final themeProvider = context.watch<ThemeProvider>();
 
     return AppScaffold(
-      loadingStatus: viewModel.loadingStatus,
+      loadingStatus: moviesListProvider.loadingStatus,
       appBar: AppBar(
         actions: [
           Row(
